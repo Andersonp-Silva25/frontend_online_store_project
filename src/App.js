@@ -9,6 +9,7 @@ class App extends Component {
 
     this.state = {
       listaProdutos: [],
+      input: '',
     };
   }
 
@@ -20,7 +21,7 @@ class App extends Component {
   }
 
   render() {
-    const { listaProdutos } = this.state;
+    const { listaProdutos, input } = this.state;
     api.getCategories();
     return (
       <BrowserRouter>
@@ -32,6 +33,8 @@ class App extends Component {
             <Home
               { ...props }
               listaProdutos={ listaProdutos }
+              changeValue={ this.changeTextoBusca }
+              input={ input }
             />
           ) }
         />
