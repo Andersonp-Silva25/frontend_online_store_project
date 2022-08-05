@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import PainelProdutos from './components/PainelProdutos';
+import Home from './components/Home';
 import * as api from './services/api';
 
 class App extends Component {
@@ -29,7 +29,7 @@ class App extends Component {
           exact
           path="/"
           render={ (props) => (
-            <PainelProdutos
+            <Home
               { ...props }
               listaProdutos={ listaProdutos }
             />
