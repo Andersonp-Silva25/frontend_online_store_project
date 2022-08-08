@@ -6,15 +6,6 @@ import ShoppingCart from './pages/ShoppingCart';
 import * as api from './services/api';
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      listaProdutos: [],
-      input: '',
-    };
-  }
-
   changeTextoBusca = ({ target }) => {
     const { name, value } = target;
     this.setState({
@@ -23,7 +14,6 @@ class App extends Component {
   }
 
   render() {
-    const { listaProdutos, input } = this.state;
     api.getCategories();
     return (
       <BrowserRouter>
@@ -31,14 +21,7 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={ (props) => (
-            <Home
-              { ...props }
-              listaProdutos={ listaProdutos }
-              changeValue={ this.changeTextoBusca }
-              input={ input }
-            />
-          ) }
+          component={ Home }
         />
         <Route exact path="/shoppingCart" component={ ShoppingCart } />
       </BrowserRouter>
