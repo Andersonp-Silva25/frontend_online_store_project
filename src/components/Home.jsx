@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PainelProdutos from './PainelProdutos';
 import Search from './Search';
 import Categorias from './Categorias';
-import { getProductsFromName } from '../services/api';
+import { getProductsFromName, getProductsFromCategory } from '../services/api';
 
 class Home extends Component {
   constructor() {
@@ -13,15 +13,22 @@ class Home extends Component {
     this.state = {
       inputText: '',
       listaProdutos: [],
+      categoriaId: '',
     };
   }
 
-fetchApi = async () => {
-  const { inputText } = this.state;
-  const request = await getProductsFromName(inputText);
-  const { results } = request;
-  this.setState({ listaProdutos: results });
-}
+  fetchCategoriasParam = async (categoriaId) => {
+    const request = await getProductsFromCategory(categoriaId);
+    const { results } = request;
+    this.setState({ listaProdutos: results });
+  }
+
+  fetchApi = async () => {
+    const { inputText } = this.state;
+    const request = await getProductsFromName(inputText);
+    const { results } = request;
+    this.setState({ listaProdutos: results });
+  }
 
   onInputChange = ({ target }) => {
     const { name, value } = target;
@@ -31,7 +38,7 @@ fetchApi = async () => {
   }
 
   render() {
-    const { listaProdutos, inputText } = this.state;
+    const { listaProdutos, inputText, categoriaId } = this.state;
     return (
       <>
         <Search
@@ -46,7 +53,10 @@ fetchApi = async () => {
           <button type="button"> Carrinho </button>
 
         </Link>
-        <Categorias />
+        <Categorias
+          fetchCategoriasParam={ this.fetchCategoriasParam }
+          categoriaId={ categoriaId }
+        />
         <PainelProdutos
           { ...this.props }
           inputText={ inputText }
