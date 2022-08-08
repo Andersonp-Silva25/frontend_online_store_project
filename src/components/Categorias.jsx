@@ -23,7 +23,6 @@ export default class Categorias extends Component {
     return (
       <div>
         <h1>Categorias</h1>
-
         {categories.map((categorie) => (
           <button
             type="button"
