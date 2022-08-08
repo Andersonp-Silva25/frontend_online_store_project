@@ -9,6 +9,9 @@ class Home extends Component {
     const { listaProdutos } = this.props;
     return (
       <>
+        {/* <Header />
+        <Categorias />
+        <PainelProdutos listaProdutos={ listaProdutos } /> */}
         <Header { ...this.props } />
         <Categorias { ...this.props } />
         <PainelProdutos { ...this.props } listaProdutos={ listaProdutos } />
@@ -18,7 +21,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  listaProdutos: PropTypes.isRequired,
+  listaProdutos: PropTypes.arrayOf.isRequired,
 };
 
 export default Home;

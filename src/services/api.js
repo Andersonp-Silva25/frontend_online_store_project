@@ -18,3 +18,10 @@ export async function getProductsFromName(name) {
   const object = await data.json();
   return object;
 }
+
+export async function getProductsID(id) {
+  const url = `https://api.mercadolibre.com/items/${id}`;
+  const data = await fetch(url);
+  const object = await data.json();
+  return object;
+}

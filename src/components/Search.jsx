@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
 import { getProductsFromName } from '../services/api';
 
 export default class SearchBar extends Component {
@@ -22,6 +24,11 @@ export default class SearchBar extends Component {
       this.setState({ listaProdutos: results });
     }
 
+    // onClickDetails = () => {
+    //   const { history } = this.props;
+    //   console.log(history.push('/productDetails'));
+    // }
+
     render() {
       const { input, listaProdutos } = this.state;
       return (
@@ -44,23 +51,29 @@ export default class SearchBar extends Component {
           </button>
           {listaProdutos.length === 0 ? <p>Nenhum produto foi encontrado</p>
             : (listaProdutos.map((produto) => (
-              <div
+              <Link
+                to={ `/${produto.id}` }
                 key={ produto.id }
-                data-testid="product"
+                data-testid="product-detail-link"
               >
-                <p>
-                  {' '}
-                  {produto.title}
-                  {' '}
-                </p>
-                <img src={ produto.thumbnail } alt={ produto.title } />
-                <span>
-                  {' '}
-                  {produto.price}
-                  {' '}
-                </span>
+                <div data-testid="product">
+                  <div>
+                    <p>
+                      {' '}
+                      {produto.title}
+                      {' '}
+                    </p>
+                    <img src={ produto.thumbnail } alt={ produto.title } />
+                    <span>
+                      {' '}
+                      {produto.price}
+                      {' '}
+                    </span>
 
-              </div>
+                  </div>
+
+                </div>
+              </Link>
 
             ))) }
 
