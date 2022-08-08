@@ -68,7 +68,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  listaProdutos: PropTypes.isRequired,
+  listaProdutos: PropTypes.arrayOf.isRequired,
 };
 
 export default Home;
