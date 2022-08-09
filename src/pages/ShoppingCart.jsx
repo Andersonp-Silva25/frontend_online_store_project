@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
 
 export default class ShoppingCart extends Component {
-  constructor() {
-    super();
+  state = {
+    produtos: [],
+  }
 
-    this.state = {
-      listCart: [],
-    };
+  componentDidMount() {
+    const storage = JSON.parse(localStorage.getItem('cartItem'));
+    if (storage === null) {
+      this.setState({ produtos: [] });
+    } else {
+      this.setState({ produtos: storage });
+    }
   }
 
   render() {
-    const { listCart } = this.state;
+    const { produtos } = this.state;
     return (
       <div>
-        { listCart.length === 0 ? (
+        { produtos.length === 0 ? (
           <p data-testid="shopping-cart-empty-message"> Seu carrinho está vazio </p>)
-          : (listCart.map((product) => (
-            <li key={ product.id }>
-              <img src={ product.thumbnail } alt={ product.title } />
-              <h3 data-testid="shopping-cart-product-name">{ product.title }</h3>
-              <p>{ product.price }</p>
-              <p data-testid="shopping-cart-product-quantity">{ product.quant }</p>
-            </li>
+          : (produtos.map((product) => (
+            <div key={ product.id }>
+              <li>
+                <img src={ product.thumbnail } alt={ product.title } />
+                <h3 data-testid="shopping-cart-product-name">{ product.title }</h3>
+                <p>{ product.price }</p>
+              </li>
+              <p data-testid="shopping-cart-product-quantity">
+                { produtos.length }
+              </p>
+            </div>
+
           )))}
       </div>
     );

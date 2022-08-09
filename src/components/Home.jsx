@@ -14,14 +14,7 @@ class Home extends Component {
       inputText: '',
       listaProdutos: [],
       categoriaId: '',
-      // listCart: [],
     };
-  }
-
-  addShoppingCart = async () => {
-    const { categoriaId } = this.state;
-    const data = await getProductsFromName(categoriaId);
-    return data;
   }
 
   fetchCategoriasParam = async (categoriaId) => {
@@ -68,7 +61,6 @@ class Home extends Component {
           { ...this.props }
           inputText={ inputText }
           listaProdutos={ listaProdutos }
-          addShoppingCart={ this.addShoppingCart }
         />
       </>
     );
