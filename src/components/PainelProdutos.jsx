@@ -3,40 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class PainelProdutos extends Component {
-  state ={
-    cartItem: [],
-  }
-
-  addProductCart = (item) => {
-    const object = { ...item, qtd: 1 };
-
-    this.setState((prevState) => ({
-      cartItem: [...prevState.cartItem, object],
-    }
-    ), () => {
-      const { cartItem } = this.state;
-      localStorage.setItem('cartItem', JSON.stringify(cartItem));
-    });
-    const { cartItem } = this.state;
-    const teste = cartItem.some((elemento) => elemento.id === object.id);
-
-    if (teste) {
-      const lista = cartItem.map((elemento) => {
-        if (elemento.id === object.id) {
-          return { ...elemento, qtd: elemento.qtd + 1 };
-        }
-        return elemento;
-      });
-      this.setState({
-        cartItem: lista,
-      }, () => {
-        localStorage.setItem('cartItem', JSON.stringify(cartItem));
-      });
-    }
-  }
-
   render() {
-    const { inputText, listaProdutos } = this.props;
+    const { inputText, listaProdutos, addProductCart } = this.props;
     return (
       <div>
         {inputText === ''
@@ -72,7 +40,7 @@ class PainelProdutos extends Component {
                 type="button"
                 data-testid="product-add-to-cart"
                 onClick={ () => {
-                  this.addProductCart(produto);
+                  addProductCart(produto);
                 } }
               >
                 Adicionar ao Carrinho
@@ -87,6 +55,7 @@ class PainelProdutos extends Component {
 PainelProdutos.propTypes = {
   inputText: PropTypes.isRequired,
   listaProdutos: PropTypes.isRequired,
+  addProductCart: PropTypes.isRequired,
 };
 
 export default PainelProdutos;
