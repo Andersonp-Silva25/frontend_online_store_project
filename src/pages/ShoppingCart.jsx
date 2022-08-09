@@ -26,13 +26,19 @@ export default class ShoppingCart extends Component {
                 <img src={ product.thumbnail } alt={ product.title } />
                 <h3 data-testid="shopping-cart-product-name">{ product.title }</h3>
                 <p>{ product.price }</p>
+                <button data-testid="product-increase-quantity" type="button">+</button>
+                <p>
+                  { product.qtd }
+
+                </p>
+                <button data-testid="product-decrease-quantity" type="button">-</button>
               </li>
-              <p data-testid="shopping-cart-product-quantity">
-                { produtos.length }
-              </p>
             </div>
 
           )))}
+        <p data-testid="shopping-cart-product-quantity">
+          { produtos.length }
+        </p>
       </div>
     );
   }

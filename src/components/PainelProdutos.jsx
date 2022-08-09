@@ -8,13 +8,31 @@ class PainelProdutos extends Component {
   }
 
   addProductCart = (item) => {
+    const object = { ...item, qtd: 1 };
+
     this.setState((prevState) => ({
-      cartItem: [...prevState.cartItem, item],
+      cartItem: [...prevState.cartItem, object],
     }
     ), () => {
       const { cartItem } = this.state;
       localStorage.setItem('cartItem', JSON.stringify(cartItem));
     });
+    const { cartItem } = this.state;
+    const teste = cartItem.some((elemento) => elemento.id === object.id);
+
+    if (teste) {
+      const lista = cartItem.map((elemento) => {
+        if (elemento.id === object.id) {
+          return { ...elemento, qtd: elemento.qtd + 1 };
+        }
+        return elemento;
+      });
+      this.setState({
+        cartItem: lista,
+      }, () => {
+        localStorage.setItem('cartItem', JSON.stringify(cartItem));
+      });
+    }
   }
 
   render() {
