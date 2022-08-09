@@ -52,9 +52,17 @@ class ProductDetails extends Component {
         </div>
         <Link
           to="/shoppingCart"
-          data-testid="shopping-cart-button"
+          data-testid="product-detail-link"
         >
-          <button type="button"> Carrinho </button>
+          <button
+            data-testid="shopping-cart-button"
+            type="button"
+          >
+            {' '}
+            Carrinho
+            {' '}
+
+          </button>
 
         </Link>
       </div>

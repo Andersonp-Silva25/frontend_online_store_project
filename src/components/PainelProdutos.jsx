@@ -3,6 +3,20 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class PainelProdutos extends Component {
+  state ={
+    cartItem: [],
+  }
+
+  addProductCart = (item) => {
+    this.setState((prevState) => ({
+      cartItem: [...prevState.cartItem, item],
+    }
+    ), () => {
+      const { cartItem } = this.state;
+      localStorage.setItem('cartItem', JSON.stringify(cartItem));
+    });
+  }
+
   render() {
     const { inputText, listaProdutos } = this.props;
     return (
@@ -34,9 +48,17 @@ class PainelProdutos extends Component {
                     {produto.price}
                     {' '}
                   </span>
-
                 </div>
               </Link>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                onClick={ () => {
+                  this.addProductCart(produto);
+                } }
+              >
+                Adicionar ao Carrinho
+              </button>
             </div>
           ))) }
       </div>
