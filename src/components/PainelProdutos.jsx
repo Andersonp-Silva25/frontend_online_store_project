@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class PainelProdutos extends Component {
   render() {
-    const { inputText, listaProdutos } = this.props;
+    const { inputText, listaProdutos, addShoppingCart } = this.props;
     return (
       <div>
         {inputText === ''
@@ -37,6 +37,14 @@ class PainelProdutos extends Component {
 
                 </div>
               </Link>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                value={ produto.id }
+                onClick={ addShoppingCart }
+              >
+                Adicionar ao Carrinho
+              </button>
             </div>
           ))) }
       </div>
@@ -47,6 +55,7 @@ class PainelProdutos extends Component {
 PainelProdutos.propTypes = {
   inputText: PropTypes.isRequired,
   listaProdutos: PropTypes.isRequired,
+  addShoppingCart: PropTypes.func.isRequired,
 };
 
 export default PainelProdutos;
