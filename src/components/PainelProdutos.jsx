@@ -55,7 +55,7 @@ class PainelProdutos extends Component {
 PainelProdutos.propTypes = {
   inputText: PropTypes.isRequired,
   listaProdutos: PropTypes.isRequired,
-  addProductCart: PropTypes.isRequired,
+  addProductCart: PropTypes.func.isRequired,
 };
 
 export default PainelProdutos;
