@@ -150,8 +150,8 @@ class ProductDetails extends Component {
             {' '}
 
           </button>
-
         </Link>
+
         <form action="">
           <input
             data-testid="product-detail-email"

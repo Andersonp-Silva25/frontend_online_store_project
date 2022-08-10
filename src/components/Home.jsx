@@ -80,7 +80,6 @@ class Home extends Component {
           data-testid="shopping-cart-button"
         >
           <button type="button"> Carrinho </button>
-
         </Link>
         <Categorias
           fetchCategoriasParam={ this.fetchCategoriasParam }

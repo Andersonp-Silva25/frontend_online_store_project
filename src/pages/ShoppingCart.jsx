@@ -24,7 +24,11 @@ export default class ShoppingCart extends Component {
     const { produtos } = this.state;
     const listaFiltrada = produtos.filter((elemento) => elemento.id !== id.id);
     const object = { ...id };
-    object.qtd += 1;
+    if (object.qtd < object.available_quantity) {
+      object.qtd += 1;
+    } else {
+      return object.qtd;
+    }
     this.setState({
       produtos: [...listaFiltrada, object],
     }, this.teste);
