@@ -12,6 +12,8 @@ class ProductDetails extends Component {
       productPrice: '',
       image: '',
       details: [],
+      cartItem: [],
+      obj: [],
     };
   }
 
@@ -24,11 +26,40 @@ class ProductDetails extends Component {
       productPrice: price,
       image: thumbnail,
       details: attributes,
+      obj: data,
     });
   }
 
+  addProductCart = (item) => {
+    const object = { ...item, qtd: 1 };
+
+    this.setState((prevState) => ({
+      cartItem: [...prevState.cartItem, object],
+    }
+    ), () => {
+      const { cartItem } = this.state;
+      localStorage.setItem('cartItem', JSON.stringify(cartItem));
+    });
+    const { cartItem } = this.state;
+    const teste = cartItem.some((elemento) => elemento.id === object.id);
+
+    if (teste) {
+      const lista = cartItem.map((elemento) => {
+        if (elemento.id === object.id) {
+          return { ...elemento, qtd: elemento.qtd + 1 };
+        }
+        return elemento;
+      });
+      this.setState({
+        cartItem: lista,
+      }, () => {
+        localStorage.setItem('cartItem', JSON.stringify(cartItem));
+      });
+    }
+  }
+
   render() {
-    const { productName, productPrice, image, details } = this.state;
+    const { productName, productPrice, image, details, obj } = this.state;
     return (
       <div>
         <h2>
@@ -50,6 +81,16 @@ class ProductDetails extends Component {
             ))}
           </ul>
         </div>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => {
+            this.addProductCart(obj);
+          } }
+        >
+          Adicionar ao carrinho
+
+        </button>
         <Link
           to="/shoppingCart"
           data-testid="product-detail-link"
