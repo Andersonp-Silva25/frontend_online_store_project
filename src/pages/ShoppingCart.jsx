@@ -6,12 +6,8 @@ export default class ShoppingCart extends Component {
   }
 
   componentDidMount() {
-    const storage = JSON.parse(localStorage.getItem('cartItem'));
-    if (storage === null) {
-      this.setState({ produtos: [] });
-    } else {
-      this.setState({ produtos: storage });
-    }
+    const storage = JSON.parse(localStorage.getItem('cartItem')) || [];
+    this.setState({ produtos: storage });
   }
 
   render() {
