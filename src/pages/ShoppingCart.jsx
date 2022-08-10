@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class ShoppingCart extends Component {
   state = {
@@ -92,6 +93,9 @@ export default class ShoppingCart extends Component {
         <p>
           { produtos.reduce((acc, elemento) => acc + elemento.qtd, 0) }
         </p>
+        <Link to="/checkout" data-testid="checkout-products">
+          <button type="button">Comprar</button>
+        </Link>
       </div>
     );
   }
