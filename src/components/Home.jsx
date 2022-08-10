@@ -14,7 +14,36 @@ class Home extends Component {
       inputText: '',
       listaProdutos: [],
       categoriaId: '',
+      cartItem: [],
     };
+  }
+
+  addProductCart = (item) => {
+    const object = { ...item, qtd: 1 };
+
+    this.setState((prevState) => ({
+      cartItem: [...prevState.cartItem, object],
+    }
+    ), () => {
+      const { cartItem } = this.state;
+      localStorage.setItem('cartItem', JSON.stringify(cartItem));
+    });
+    const { cartItem } = this.state;
+    const teste = cartItem.some((elemento) => elemento.id === object.id);
+
+    if (teste) {
+      const lista = cartItem.map((elemento) => {
+        if (elemento.id === object.id) {
+          return { ...elemento, qtd: elemento.qtd + 1 };
+        }
+        return elemento;
+      });
+      this.setState({
+        cartItem: lista,
+      }, () => {
+        localStorage.setItem('cartItem', JSON.stringify(cartItem));
+      });
+    }
   }
 
   fetchCategoriasParam = async (categoriaId) => {
@@ -38,7 +67,7 @@ class Home extends Component {
   }
 
   render() {
-    const { listaProdutos, inputText, categoriaId } = this.state;
+    const { listaProdutos, inputText, categoriaId, cartItem } = this.state;
     return (
       <>
         <Search
@@ -59,6 +88,8 @@ class Home extends Component {
         />
         <PainelProdutos
           { ...this.props }
+          cartItem={ cartItem }
+          addProductCart={ this.addProductCart }
           inputText={ inputText }
           listaProdutos={ listaProdutos }
         />
