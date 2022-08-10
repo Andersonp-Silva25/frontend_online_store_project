@@ -36,6 +36,8 @@ class PainelProdutos extends Component {
                   </span>
                 </div>
               </Link>
+              {produto.shipping.free_shipping
+               && <span data-testid="free-shipping"> Frete Grátis</span>}
               <button
                 type="button"
                 data-testid="product-add-to-cart"
