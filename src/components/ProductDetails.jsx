@@ -25,6 +25,10 @@ class ProductDetails extends Component {
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const storage = JSON.parse(localStorage.getItem(id)) || [];
+    const cartItem = JSON.parse(localStorage.getItem('cartItem')) || [];
+    this.setState({
+      cartItem,
+    });
     const data = await getProductsID(id);
     const { title, price, thumbnail, attributes } = data;
     this.setState({
@@ -103,6 +107,7 @@ class ProductDetails extends Component {
       formDetail,
       arrayObjects,
       formsValido,
+      cartItem,
     } = this.state;
 
     const { match: { params: { id } } } = this.props;
@@ -135,7 +140,6 @@ class ProductDetails extends Component {
           } }
         >
           Adicionar ao carrinho
-
         </button>
         <Link
           to="/shoppingCart"
@@ -151,6 +155,11 @@ class ProductDetails extends Component {
 
           </button>
         </Link>
+        <span
+          data-testid="shopping-cart-size"
+        >
+          { cartItem.reduce((acc, elemento) => acc + elemento.qtd, 1)}
+        </span>
 
         <form action="">
           <input
@@ -216,7 +225,6 @@ class ProductDetails extends Component {
             type="button"
           >
             Enviar
-
           </button>
         </form>
         { arrayObjects.length > 0 && arrayObjects.map((elemento) => (
@@ -231,7 +239,6 @@ class ProductDetails extends Component {
     );
   }
 }
-
 ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -239,5 +246,4 @@ ProductDetails.propTypes = {
     }).isRequired,
   }).isRequired,
 };
-
 export default ProductDetails;

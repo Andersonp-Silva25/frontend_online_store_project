@@ -18,6 +18,13 @@ class Home extends Component {
     };
   }
 
+  componentDidMount() {
+    const items = JSON.parse(localStorage.getItem('cartItem')) || [];
+    this.setState({
+      cartItem: items,
+    });
+  }
+
   addProductCart = (item) => {
     const object = { ...item, qtd: 1 };
 
@@ -80,6 +87,12 @@ class Home extends Component {
           data-testid="shopping-cart-button"
         >
           <button type="button"> Carrinho </button>
+          <span
+            data-testid="shopping-cart-size"
+          >
+            { cartItem.reduce((acc, elemento) => acc + elemento.qtd, 0) }
+
+          </span>
         </Link>
         <Categorias
           fetchCategoriasParam={ this.fetchCategoriasParam }
